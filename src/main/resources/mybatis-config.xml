@@ -14,6 +14,7 @@
         <typeAlias type="com.pojo.User" alias="User"/>
         <typeAlias type="com.pojo.Details" alias="Detail"/>
         <typeAlias type="com.pojo.Clazz" alias="Clazz"/>
+        <typeAlias type="com.pojo.Student" alias="Student"/>
     </typeAliases>
 
     <environments default="mysql">
@@ -46,6 +47,7 @@
         <mapper resource="mappers/UserMapper.xml"/>
         <mapper resource="mappers/DetailsMapper.xml"/>
         <mapper resource="mappers/ClazzMapper.xml"/>
+        <mapper resource="mappers/StudentMapper.xml"/>
     </mappers>
 
 </configuration>
