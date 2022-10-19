@@ -16,7 +16,6 @@ public class User {
     private String userPwd;
     private String userRealname;
     private String userImg;
-
-    private Details details;
+    private Details detail;
 
 }

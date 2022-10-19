@@ -2,9 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dao.DetailsDao">
 
+    <resultMap id="detailMap" type="Detail">
+        <id column="detail_id" property="detailId"/>
+        <result column="user_addr" property="userAddr"/>
+        <result column="user_tel" property="userTel"/>
+        <result column="user_desc" property="userDesc"/>
+        <result column="uid" property="userId"/>
+    </resultMap>
+
     <insert id="insertDeatils" useGeneratedKeys="true" keyProperty="detailId">
         insert into details(user_addr,user_tel,user_desc,uid)
         values(#{userAddr},#{userTel},#{userDesc},#{userId})
     </insert>
-
+    
+    <select id="selectDetailById" resultMap="detailMap">
+        SELECT detail_id,user_addr,user_tel,user_desc,uid
+        FROM details
+        WHERE uid = #{uid}
+    </select>
+    
 </mapper>

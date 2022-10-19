@@ -1,5 +1,6 @@
 package com.dao;
 
+import com.pojo.Details;
 import com.pojo.User;
 
 public interface UserDao {
@@ -7,4 +8,6 @@ public interface UserDao {
     int insertUser(User user);
 
     User queryUser(String userName);
+
+
 }

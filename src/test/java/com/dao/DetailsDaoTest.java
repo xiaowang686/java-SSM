@@ -6,7 +6,5 @@ import static org.junit.Assert.*;
 
 public class DetailsDaoTest {
 
-    @Test
-    public void insertDeatilsTest() {
-    }
+
 }
