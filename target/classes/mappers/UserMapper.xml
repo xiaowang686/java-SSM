@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dao.UserDao">
+    <!-- 连接查询
+    <resultMap id="user" type="User">
+        <id column="user_id" property="userId"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_pwd" property="userPwd"/>
+        <result column="user_realname" property="userRealname"/>
+        <result column="user_img" property="userImg"/>
+        <result column="detail_id" property="detail.detailId"/>
+        <result column="user_addr" property="detail.userAddr"/>
+        <result column="user_tel" property="detail.userTel"/>
+        <result column="user_desc" property="detail.userDesc"/>
+        <result column="uid" property="detail.userId"/>
+    </resultMap>
+    -->
+    <resultMap id="userMap" type="User">
+        <id column="user_name" property="userName"/>
+        <result column="user_name" property="userName"/>
+        <result column="user_pwd" property="userPwd"/>
+        <result column="user_realname" property="userRealname"/>
+        <result column="user_img" property="userImg"/>
+        <association column="user_id" property="detail" select="com.dao.DetailsDao.selectDetailById" />
+    </resultMap>
+
+    <insert id="insertUser" useGeneratedKeys="true" keyProperty="userId">
+        insert into users(user_name,user_pwd,user_realname,user_img)
+        values(#{userName},#{userPwd},#{userRealname},#{userImg})
+    </insert>
+
+    <!-- 连接查询
+    <select id="queryUser" resultMap="user">
+        select user_id,user_name,user_pwd,user_realname,user_img,detail_id,user_addr,user_tel,user_desc,uid
+        from users u
+        inner join details d
+        on u.user_id = d.detail_id
+        where user_name = #{username}
+    </select>
+    -->
+    <select id="queryUser" resultMap="userMap">
+        select user_id,user_name,user_pwd,user_realname,user_img
+        from users
+        where user_name = #{username}
+    </select>
+</mapper>
