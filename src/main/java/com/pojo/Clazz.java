@@ -17,5 +17,4 @@ public class Clazz {
     private String className;
     private String classDesc;
 
-    private List<Student> stus;
 }

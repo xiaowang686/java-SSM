@@ -2,12 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.dao.StudentDao">
-
+    <!--一对多子查询
     <resultMap id="studentMap" type="Student">
         <id column="sid" property="stuId"/>
         <result column="sname" property="stuName"/>
         <result column="sage" property="stuAge"/>
         <result column="scid" property="stuCid"/>
+    </resultMap>
+    -->
+    <!--多对一连接查询
+    <resultMap id="studentMap" type="Student">
+        <id column="sid" property="stuId"/>
+        <result column="sname" property="stuName"/>
+        <result column="sage" property="stuAge"/>
+        <result column="scid" property="stuCid"/>
+        <result column="cid" property="clazz.classId"/>
+        <result column="cname" property="clazz.className"/>
+        <result column="cdesc" property="clazz.classDesc"/>
+    </resultMap>
+    -->
+    <!--多对一子查询-->
+    <resultMap id="studentMap" type="Student">
+        <id column="sid" property="stuId"/>
+        <result column="sname" property="stuName"/>
+        <result column="sage" property="stuAge"/>
+        <result column="scid" property="stuCid"/>
+        <association column="scid" property="clazz" select="com.dao.ClazzDao.queryClazz"/>
     </resultMap>
 
     <select id="selectStudentByClass" resultMap="studentMap">
@@ -15,4 +35,11 @@
         from students
         where scid=#{stuCid}
     </select>
+    
+    <select id="queryStudent" resultMap="studentMap">
+        select sid, sname, sage, scid
+        from students s
+        where s.scid=#{sCid}
+    </select>
+
 </mapper>

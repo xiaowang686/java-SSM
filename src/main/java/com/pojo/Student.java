@@ -15,4 +15,5 @@ public class Student {
     private String stuName;
     private int stuAge;
     private int stuCid;
+    private Clazz clazz;
 }

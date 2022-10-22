@@ -9,20 +9,36 @@
    -->
 
 <mapper namespace="com.dao.ClazzDao">
+    <!--连接查询
     <resultMap id="clazzMap" type="Clazz">
         <id column="cid" property="classId"/>
         <result column="cname" property="className"/>
         <result column="cdesc" property="classDesc"/>
-        <result column="sid" property="stus.stuId"/>
-        <result column="sname" property="stus.stuName"/>
-        <result column="sage" property="stus.stuAge"/>
-        <result column="scid" property="stus.stuCid"/>
+        <collection property="stus" ofType="Student">
+            <result column="sid" property="stuId"/>
+            <result column="sname" property="stuName"/>
+            <result column="sage" property="stuAge"/>
+            <result column="scid" property="stuCid"/>
+        </collection>
+    </resultMap>
+    -->
+    <!--子查询
+    <resultMap id="clazzMap" type="Clazz">
+        <id column="cid" property="classId"/>
+        <result column="cname" property="className"/>
+        <result column="cdesc" property="classDesc"/>
+        <collection column="cid" property="stus" ofType="Student" select="com.dao.StudentDao.selectStudentByClass" />
+    </resultMap>
+    -->
+    <resultMap id="clazzMap" type="Clazz">
+        <id column="cid" property="classId"/>
+        <result column="cname" property="className"/>
+        <result column="cdesc" property="classDesc"/>
     </resultMap>
     <select id="queryClazz" resultMap="clazzMap">
-        select *
+        select cid,cname,cdesc
         from classes c
-        inner join students s
-        on c.cid=s.scid
-        where c.cid=1
+        where c.cid=#{cid}
     </select>
+
 </mapper>

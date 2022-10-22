@@ -8,4 +8,6 @@ public interface StudentDao {
 
     List<Student> selectStudentByClass(int clazz);
 
+    List<Student> queryStudent(int sCid);
+
 }
