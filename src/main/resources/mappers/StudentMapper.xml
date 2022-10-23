@@ -21,13 +21,26 @@
         <result column="cdesc" property="clazz.classDesc"/>
     </resultMap>
     -->
-    <!--多对一子查询-->
+    <!--多对一子查询
     <resultMap id="studentMap" type="Student">
         <id column="sid" property="stuId"/>
         <result column="sname" property="stuName"/>
         <result column="sage" property="stuAge"/>
         <result column="scid" property="stuCid"/>
         <association column="scid" property="clazz" select="com.dao.ClazzDao.queryClazz"/>
+    </resultMap>
+    -->
+
+
+    <resultMap id="studentMap" type="Student">
+        <id column="sid" property="stuId"/>
+        <result column="sname" property="stuName"/>
+        <result column="sage" property="stuAge"/>
+        <result column="scid" property="stuCid"/>
+        <collection  property="courses" ofType="com.pojo.Course">
+            <result column="course_id" property="courseId"/>
+            <result column="course_name" property="courseName"/>
+        </collection>
     </resultMap>
 
     <select id="selectStudentByClass" resultMap="studentMap">
@@ -40,6 +53,15 @@
         select sid, sname, sage, scid
         from students s
         where s.scid=#{sCid}
+    </select>
+
+    <select id="queryStudentByIdAndCourse" resultMap="studentMap">
+        select s.sid,sname,sage,scid,course_id,course_name
+        from students s
+        inner join courses c
+        inner join grades g
+        on s.sid = g.sid and c.course_id = g.cid
+        where s.sid=#{sid}
     </select>
 
 </mapper>

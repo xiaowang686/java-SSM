@@ -15,6 +15,7 @@
         <typeAlias type="com.pojo.Details" alias="Detail"/>
         <typeAlias type="com.pojo.Clazz" alias="Clazz"/>
         <typeAlias type="com.pojo.Student" alias="Student"/>
+        <typeAlias type="com.pojo.Member" alias="Member"/>
     </typeAliases>
 
     <environments default="mysql">
@@ -27,10 +28,10 @@
                             UNPOOLED 表示不支持数据源连接池
                             JNDI 表示支持外部数据源连接池
               -->
-            <dataSource type="POOLED">
+            <dataSource type="com.utils.DruidDataSourceFactory">
                 <!--此处使用的是MySQL数据库，使用Oracle数据库时需要修改，仔细检查各项参数是否正确，里面配置了时区、编码方式、SSL，用以防止中文查询乱码，导致查询结果为null及SSL警告等问题-->
-                <property name="driver" value="${driver}"/>
-                <property name="url" value="${url}"/>
+                <property name="driverClass" value="${driver}"/>
+                <property name="jdbcUrl" value="${url}"/>
                 <property name="username" value="${username}"/>
                 <property name="password" value="${password}"/>
             </dataSource>
@@ -48,6 +49,7 @@
         <mapper resource="mappers/DetailsMapper.xml"/>
         <mapper resource="mappers/ClazzMapper.xml"/>
         <mapper resource="mappers/StudentMapper.xml"/>
+        <mapper resource="mappers/MemberMapper.xml"/>
     </mappers>
 
 </configuration>

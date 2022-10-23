@@ -30,6 +30,7 @@
         <collection column="cid" property="stus" ofType="Student" select="com.dao.StudentDao.selectStudentByClass" />
     </resultMap>
     -->
+    <!--多对一子查询-->
     <resultMap id="clazzMap" type="Clazz">
         <id column="cid" property="classId"/>
         <result column="cname" property="className"/>

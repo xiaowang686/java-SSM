@@ -10,4 +10,5 @@ public interface StudentDao {
 
     List<Student> queryStudent(int sCid);
 
+    List<Student> queryStudentByIdAndCourse(int sId);
 }

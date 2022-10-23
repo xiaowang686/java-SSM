@@ -25,4 +25,14 @@ public class StudentDaoTest extends TestCase {
             System.out.println(student1);
         }
     }
+
+    @Test
+    public void testQueryStudentByIdAndCourseTest() {
+        StudentDao studentDao = MybatisUtil.getMapper(StudentDao.class);
+        List<Student> studentList = studentDao.queryStudentByIdAndCourse(1);
+        for (Student student:studentList){
+            System.out.println(student);
+        }
+    }
+
 }
