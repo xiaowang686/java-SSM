@@ -4,6 +4,7 @@ import com.pojo.Student;
 import com.utils.MybatisUtil;
 import junit.framework.TestCase;
 import org.junit.Test;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.List;
 

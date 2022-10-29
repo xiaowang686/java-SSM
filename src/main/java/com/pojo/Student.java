@@ -18,4 +18,5 @@ public class Student {
     private int stuAge;
     private int stuCid;
     private List<Course> courses;
+
 }
