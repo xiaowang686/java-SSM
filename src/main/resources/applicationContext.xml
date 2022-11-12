@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <bean id="stu" class="com.pojo.Student">
+    <context:property-placeholder location="druid.properties"/>
+
+    <!--druid数据源 -->
+    <bean id="druidDataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${druid.driver}"/>
+        <property name="url" value="${druid.url}"/>
+        <property name="username" value="${druid.username}"/>
+        <property name="password" value="${druid.password}"/>
+
+        <property name="initialSize" value="${druid.pool.init}"/>
+        <property name="minIdle" value="${druid.pool.minIdle}"/>
+        <property name="maxActive" value="${druid.pool.maxActive}"/>
+        <property name="maxWait" value="${druid.pool.timeout}"/>
     </bean>
 
-    <bean id="course" class="com.pojo.Course">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="druidDataSource"/>
+        <property name="mapperLocations" value="classpath:mappers/*Mapper.xml"/>
+        <property name="typeAliasesPackage" value="com.pojo"/>
+        <property name="configLocation" value="mybatis-config.xml"/>
     </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.dao"/>
+    </bean>
+
+    <bean id="course" class="com.pojo.Course"/>
+    <bean id="stu" class="com.pojo.Student"/>
+
+    <bean id="bookDAO" class="com.proxy.BookDaoImpl"/>
+    <bean id="txManager" class="com.proxy.TxManager"/>
+    <aop:config>
+        <aop:pointcut expression="execution(* com.proxy.*.*(..))" id="book_all"></aop:pointcut>
+        <aop:aspect ref="txManager">
+            <aop:before method="before" pointcut-ref="book_all"/>
+            <aop:after method="commit" pointcut-ref="book_all"/>
+        </aop:aspect>
+    </aop:config>
 </beans>

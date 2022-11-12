@@ -8,7 +8,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class Details {
+public class Detail {
 
     private int detailId;
     private String userAddr;

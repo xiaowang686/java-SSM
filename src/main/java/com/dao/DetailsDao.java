@@ -1,12 +1,12 @@
 package com.dao;
 
-import com.pojo.Details;
+import com.pojo.Detail;
 
 import java.util.Map;
 
 public interface DetailsDao {
 
-    int insertDeatils(Details details);
+    int insertDeatils(Detail details);
 
-    Details selectDetailById(Map map);
+    Detail selectDetailById(Map map);
 }
