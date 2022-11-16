@@ -1,6 +1,5 @@
 package com;
 
-import sun.misc.ConditionLock;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -40,7 +39,6 @@ class Producer1 extends Thread{
     public Producer1(Resouce1 resouce1) {
         this.resouce1 = resouce1;
     }
-
     @Override
     public void run() {
         while (true) {
